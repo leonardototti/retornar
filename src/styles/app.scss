@@ -1,0 +1,654 @@
+/* ============================================================================
+	Imports
+============================================================================ */
+// Vars
+@import "vars";
+
+// Mixins
+@import "mixins/clearfix";
+@import "mixins/limit-text";
+@import "mixins/media";
+@import "mixins/ul-reset";
+
+/* ============================================================================
+	Vendor
+============================================================================ */
+// Util
+@import 'vendor/util/helpers';
+
+// AntD
+@import '~antd/dist/antd.css';
+
+/* ============================================================================
+	Container
+============================================================================ */
+.container {
+	display:flow-root;
+	padding-left:$grid-container-padding;
+	padding-right:$grid-container-padding;
+	margin-left:auto;
+	margin-right:auto;
+	max-width:$grid-width;
+	@include mobile {
+		padding-left:$grid-container-padding-mobile;
+		padding-right:$grid-container-padding-mobile;
+	}
+}
+
+.container-full {
+	display:flow-root;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* ============================================================================
+	General
+============================================================================ */
+#root, body, html {
+	min-height:100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: $font-family;
+	font-variant: normal!important;
+
+	* {
+		font-family: $font-family;
+		font-variant: normal!important;
+	}
+}
+
+body {
+	-webkit-tap-highlight-color:transparent;
+	overflow-anchor:auto;
+	font-size: 16px;
+	@include mobile {
+		font-size:14px;
+	}
+}
+
+#root {
+	display:flex;
+	flex-direction:column;
+	position:relative;
+}
+
+// Enable native smooth scroll
+body,
+.smooth-container {
+	scroll-behavior:smooth;
+}
+
+@include print {
+	@page {
+		margin:20px;
+	}
+}
+
+a {
+	transition:all linear 100ms;
+}
+
+p,
+.ant-typography {
+	margin-bottom:30px;
+	&:last-child {
+		margin-bottom:0;
+	}
+}
+
+// Heading
+h1, h2, h3, h4, h5, h6 {
+	font-weight:400;
+	color:inherit;
+}
+
+h1 {
+	font-size:36px;
+	@include mobile {
+		font-size:24px;
+	}
+	@include tablet {
+		font-size:32px;
+	}
+}
+
+h2 {
+	font-size:28px;
+	@include mobile {
+		font-size:24px;
+	}
+	@include tablet {
+		font-size:26px;
+	}
+}
+
+h3 {
+	font-size:14px;
+	@include mobile {
+		font-size:14px;
+	}
+}
+
+// Image
+img {
+	display:inline-block;
+	max-width:100%;
+	height:auto;
+}
+
+audio, video {
+	&:focus {
+		outline:none;
+	}
+}
+
+[class^="icon-loading"] {
+	color:$primary-color;
+	animation:loadingCircle 1s infinite linear;
+}
+
+/* ============================================================================
+	Site main
+============================================================================ */
+#site-main {
+	flex:1;
+	position:relative;
+	padding-top: 80px;
+	padding-bottom: 100px;
+
+	@include mobile {
+		padding-top: 50px;
+		padding-bottom: 80px;
+	}
+}
+
+footer {
+	padding: 30px 0;
+	font-size: 14px;
+	font-weight: 500;
+	text-align: center;
+
+	p {
+		margin-bottom: 8px;
+	}
+
+	a {
+		color: $link-color;
+
+		&:hover {
+			color: $link-hover-color;
+		}
+	}
+}
+
+/*** Buttons ==================================== */
+.ant-btn {
+	line-height:1.428; // Fix change font-size button
+	font-weight: 500;
+	font-size: 16px;
+	min-width: 200px;
+	height: 60px;
+	min-height: 60px;
+	border-radius: $border-radius;
+	span {
+		line-height: 52px;
+	}
+	i:not(:last-child) {
+		padding-right:8px;
+		vertical-align:-2px;
+	}
+	&.ant-btn-sm {
+		height: 50px;
+		min-height: 50px;
+		min-width: unset;
+		font-size:12px;
+
+		span {
+			line-height: 42px;
+		}
+	}
+	&.ant-btn-primary {
+		background-color: $primary-color;
+		border-color: $primary-color;
+		color:#fff;
+		&:hover {
+			background-color:$primary-color-hover;
+			border-color:$primary-color-hover;
+			color:#fff;
+		}
+		&[disabled],
+		&[disabled]:hover {
+			background-color: desaturate($primary-color, 40%);
+			border-color: desaturate($primary-color, 40%);
+			color:rgba(255, 255, 255, 0.8);
+		}
+	}
+	&.ant-btn-secondary {
+		background-color: $secondary-color;
+		border-color:$secondary-color;
+		color:$primary-color;
+		i {
+			color:inherit;
+			transition:color linear 100ms;
+		}
+		span, svg path {
+			transition: 0.2s;
+		}
+		&:hover {
+			border-color:$secondary-color-hover;
+			background-color:$secondary-color-hover;
+
+			svg {
+				path {
+					fill: #fff!important;
+				}
+			}
+		}
+		&[disabled],
+		&[disabled]:hover {
+			background-color: desaturate($secondary-color, 20%);
+			border-color: desaturate($secondary-color, 20%);
+			color:rgba($primary-color, 0.9);
+		}
+	}
+	&.btn-outline {
+		color:#2c2835;
+		border-color:#2c2835;
+		&:hover,
+		&:focus {
+			color:$primary-color;
+			border-color:$primary-color;
+		}
+	}
+	&.btn-link {
+		color:#939393;
+		border-color:transparent;
+		background-color:transparent;
+		&:hover,
+		&:focus {
+			color:$primary-color;
+			&[disabled] {
+				border-color:transparent;
+				background-color:transparent;
+			}
+		}
+	}
+}
+
+/*** Form ==================================== */
+input::placeholder {
+	opacity:1;
+}
+
+.ant-form-item {
+	.ant-input-affix-wrapper {
+		padding-top:0;
+		padding-bottom:0;
+		padding-left:0;
+		> .ant-input:first-child {
+			padding-left:20px;
+		}
+		.ant-input-suffix {
+			margin:0;
+		}
+	}
+	.ant-input-prefix {
+		i {
+			min-width:40px;
+			font-size:16px;
+			color:#939393;
+			text-align:center;
+		}
+	}
+}
+
+.ant-input,
+.ant-input-number,
+.ant-select,
+.float-label-wrap .float-label {
+	font-size:16px;
+}
+
+// Fix height
+.ant-input {
+	height:$form-field-height;
+}
+.ant-input-password .ant-input {
+	height:$form-field-height - ($form-field-border-width * 2);
+}
+.ant-input-number-input {
+	height:$form-field-height - ($form-field-border-width * 2);
+}
+.ant-input-affix-wrapper {
+	.ant-input {
+		height:$form-field-height - ($form-field-border-width * 4);
+	}
+}
+.ant-form-item-label > label {
+	height:$form-field-height - ($form-field-border-width * 4);
+}
+.ant-input-search .ant-input-affix-wrapper {
+	padding-top:0;
+	padding-bottom:0;
+	.ant-input {
+		height:$form-field-height - ($form-field-border-width * 2);
+	}
+}
+.ant-input-search-button {
+	height:$form-field-height - ($form-field-border-width * 2);
+}
+.ant-form-item-control-input {
+	min-height:$form-field-height - ($form-field-border-width * 4);
+}
+
+// Disable outline effect
+.ant-input,
+.ant-input-number,
+.ant-select-selector,
+.ant-input-affix-wrapper {
+	box-shadow: none!important;
+}
+
+.ant-form-item {
+	margin-bottom: 20px;
+}
+
+.ant-input {
+	border-radius: $border-radius;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	&:hover, &:focus, &.ant-input-focused {
+		border-color: $primary-color;
+	}
+}
+
+.ant-form-item-children {
+	display:block;
+}
+
+// Error
+.ant-form-item-has-error {
+	.ant-form-item-control {
+		.ant-input-mask,
+		.ant-input-mask:hover {
+			border-color:#ff4d4f;
+		}
+		.float-label-wrap {
+			.ant-input-affix-wrapper {
+				border-color:#ff4d4f;
+			}
+		}
+	}
+}
+
+// Float label
+.float-label-wrap {
+	position:relative;
+	.ant-input {
+		padding-top:14px;
+		padding-bottom:0;
+	}
+	.ant-input-affix-wrapper .ant-input {
+		padding-top:13px;
+		padding-bottom:0;
+	}
+	.ant-input-number-input {
+		padding-top:14px;
+	}
+	.ant-input-password {
+		padding-top:0;
+		padding-bottom:0;
+	}
+	.ant-input-textarea {
+		.ant-input {
+			padding-top:20px;
+		}
+	}
+	.ant-select {
+		display:block;
+		.ant-select-selection-item {
+			padding-top:21px;
+			line-height:1.2;
+
+			@include mobile {
+				padding-top:19px;
+			}
+		}
+		&:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+			padding-top:15px;
+		}
+	}
+	.float-label {
+		position:absolute;
+		top:0;
+		left:0;
+		line-height:21px;
+		color:#939393;
+		pointer-events:none;
+		user-select:none;
+		transition:all 0.2s ease-in-out;
+		transform-origin:left top;
+		z-index:2;
+		font-size:14px;
+		&.float-label-focus {
+			color:#939393;
+		}
+	}
+}
+
+/*** Modal ==================================== */
+/*** Modal ==================================== */
+.ant-modal-root {
+	.ant-modal {
+		// Modal confirm
+		&.ant-modal-confirm {
+			text-align:center;
+			@include mobile {
+				max-width:320px;
+			}
+			@include mobile_up {
+				min-width:540px;
+			}
+			.ant-modal-content {
+				.ant-modal-body {
+					padding:50px 20px;
+					@include mobile {
+						padding:20px;
+					}
+				}
+				.ant-modal-confirm-body {
+					> .anticon {
+						display:none;
+					}
+					// Custom icon
+					> i:first-child {
+						margin-bottom:20px;
+						font-size:60px;
+						@include mobile {
+							font-size:50px;
+						}
+					}
+					.ant-modal-confirm-title {
+						font-weight:600;
+						font-size:22px;
+						color:#000;
+						white-space:pre-wrap;
+						line-height:1.2;
+						max-width: 80%;
+						margin-left: auto;
+						margin-right: auto;
+						@include mobile {
+							font-size:18px;
+						}
+					}
+					.ant-modal-confirm-content {
+						margin:18px auto 0;
+						line-height:1.3;
+						font-size:16px;
+						color:$text-color;
+						white-space:pre-wrap;
+						max-width:75%;
+						@include tablet {
+							max-width:85%;
+						}
+						@include mobile {
+							font-size:14px;
+							max-width:95%;
+						}
+					}
+				}
+				.ant-modal-confirm-btns {
+					float:none;
+					display:flex;
+					justify-content:center;
+					margin:35px -10px 0;
+					text-align:center;
+					flex-direction:row-reverse;
+
+					@include mobile {
+						flex-wrap:wrap;
+						flex-direction:row;
+					}
+					.ant-btn {
+						margin:0 10px;
+						min-width:150px;
+						height:50px;
+						color:#fff;
+						background:#4E4E4E;
+						border-color:transparent;
+						order:1;
+						&.ant-btn-primary {
+							order:0;
+						}
+						@include mobile {
+							flex:100%;
+							&.ant-btn-primary {
+								margin-bottom:10px;
+							}
+						}
+						&:hover,
+						&:focus {
+							color:#fff;
+							background-color:#000;
+						}
+						// Cancel button
+						&:not(.ant-btn-primary) {
+						}
+						&:nth-child(2) {
+							background:$primary-color;
+							&:hover,
+							&:focus {
+								color:#fff;
+								background-color:$primary-color-hover;
+							}
+						}
+						// Only one button
+						&:first-child:last-child {
+							background:$primary-color;
+							&:hover,
+							&:focus {
+								// color:#fff;
+								// background-color:$primary-color-hover;
+							}
+						}
+					}
+				}
+			}
+			&.ant-modal-confirm-success {
+				.ant-modal-content {
+					.ant-modal-confirm-body {
+						> i:first-child {
+							display: block;
+							color:$primary-color;
+						}
+					}
+				}
+			}
+		}
+	}
+	.ant-modal-wrap {
+		&.modal-mobile-full {
+			@include mobile {
+				.ant-modal {
+					margin:0;
+					padding:0;
+					width:100% !important;
+					max-width:100%;
+					min-height:100%;
+					.ant-modal-content {
+						min-height:100vh;
+						background:#ffffff;
+						border-radius:0 !important;
+						.ant-modal-body {
+							padding:20px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.ant-modal-content {
+	border-radius: $border-radius;
+
+	.ant-modal-body {
+		padding: 40px;
+
+		@include mobile {
+			padding: 20px;
+			text-align: center;
+		}
+
+		h2 {
+			font-size: 24px;
+			font-weight: 600;
+
+			@include mobile {
+				font-size: 20px;
+			}
+		}
+
+		p.subtitle {
+			font-size: 16px;
+
+			@include mobile {
+				font-size: 14px;
+			}
+		}
+
+		.role-container {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin-bottom: 20px;
+
+			&:empty {
+				display: none;
+			}
+
+			.role-item {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 5px 15px;
+				border-radius: $border-radius;
+				background-color: #fafafa;
+				color: $primary-color;
+				gap: 10px;
+				cursor: pointer;
+
+				&:hover {
+					background-color: #f5f5f5;
+				}
+			}
+		}
+	}
+}
+
+/* ============================================================================
+	Pages
+============================================================================ */
+@import "pages/home";
