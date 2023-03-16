@@ -1,10 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Button, Empty } from "antd";
 
-import { connect } from "react-redux";
-
-import * as orderActions from "../../redux/actions/orderActions";
-
 import * as seo from "../../helpers/seo";
 
 import { Link } from "react-router-dom";
@@ -16,6 +12,7 @@ class Home extends Component {
 		super(props);
 
 		this.state = {
+			orders: [],
 		};
 	}
 
@@ -30,8 +27,8 @@ class Home extends Component {
 	}
 
 	render() {
-		const { orders } = this.props;
-
+		const { orders } = this.state;
+		
 		return (
 			<main id="site-main" role="main">
 				<div className="container">
@@ -61,10 +58,4 @@ class Home extends Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		orders: state.order.orders,
-	};
-};
-
-export default connect(mapStateToProps, null)(Home);
+export default Home;

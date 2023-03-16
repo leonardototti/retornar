@@ -11,6 +11,7 @@ Esse projeto foi desenvolvido como um teste de um sistema de pedidos.
 	- [Redux Persist](https://github.com/rt2zz/redux-persist)
 - [React Router DOM](https://reactrouter.com/web/guides/quick-start)
 - [Sass](https://sass-lang.com)
+- [JSON Server](https://github.com/typicode/json-server)
 
 ## Requisitos
 - [NodeJS](https://nodejs.org/en/)
