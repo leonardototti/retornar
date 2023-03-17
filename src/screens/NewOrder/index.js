@@ -30,19 +30,19 @@ const flavorsArray = [
 const sizesArray = [
 	{
 		id: 1,
-		name: "Pequeno",
+		name: "Pequeno 300ml",
 		image: "/sizes/01.png",
 		price: 10,
 	},
 	{
 		id: 2,
-		name: "Médio",
+		name: "Médio 500ml",
 		image: "/sizes/02.png",
 		price: 12,
 	},
 	{
 		id: 3,
-		name: "Grande",
+		name: "Grande 700ml",
 		image: "/sizes/03.png",
 		price: 15,
 	},
