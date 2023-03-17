@@ -60,7 +60,7 @@ class Home extends Component {
 						content: String(data),
 					});
 				});
-		}, 1000);
+		}, 500);
 	};
 
 	deleteOrder = (id) => {
