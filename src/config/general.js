@@ -11,6 +11,22 @@ export const CLIENT_DATA = {
 export const ROUTE_PATH  = process.env.PUBLIC_URL || '/';
 
 // -----------------------------------------------------------------------------
+// API
+// -----------------------------------------------------------------------------
+// Em casos reais usaria a API_URL do .env
+export const API_URL = "https://retornar-server.vercel.app/";
+
+// -----------------------------------------------------------------------------
+// Errors
+// -----------------------------------------------------------------------------
+export const API_ERRO_TYPE_VALIDATION = "validation";
+export const API_ERRO_TYPE_API        = "api";
+export const API_ERRO_TYPE_SERVER     = "server";
+export const API_ERRO_TYPE_CONNECTION = "connection";
+export const API_ERRO_TYPE_OTHER      = "other";
+export const API_ERRO_TYPE_CANCEL     = "cancel";
+
+// -----------------------------------------------------------------------------
 // SEO
 // -----------------------------------------------------------------------------
 export const SEO_TITLE     = "Retornar";

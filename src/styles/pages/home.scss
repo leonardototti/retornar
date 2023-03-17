@@ -12,7 +12,7 @@ body.page-home {
 				flex-direction: column;
 				gap: 15px;
 
-				.ant-btn {
+				a, .ant-btn {
 					width: 100%;
 				}
 			}
@@ -30,6 +30,55 @@ body.page-home {
 
 		.orders-container {
 			margin-top: 30px;
+
+			.order {
+				padding: 25px 30px;
+				padding-right: 80px;
+				border-radius: 5px;
+				margin-bottom: 20px;
+				border: 1px solid lighten($primary-color-hover, 60%);
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+				position: relative;
+
+				.order-title {
+					font-size: 18px;
+					font-weight: 600;
+					margin-bottom: 12px;
+					color: $primary-color-hover;
+				}
+
+				.order-body-item-title {
+					font-size: 14px;
+					font-weight: 700;
+					margin-bottom: 2px;
+					text-transform: uppercase;
+				}
+
+				.order-body-item-value {
+					font-size: 14px;
+					font-weight: 400;
+					margin-bottom: 5px;
+				}
+
+				.delete-container {
+					position: absolute;
+					right: 30px;
+					top: 50%;
+					transform: translateY(-50%);
+
+					.ant-btn {
+						padding: 0;
+						height: 50px;
+						min-height: 50px;
+						width: 50px;
+						min-width: 50px;
+						border-radius: 50%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+				}
+			}
 		}
 	}
 }
