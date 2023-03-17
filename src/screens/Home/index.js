@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
 
 import { AiFillDelete } from "react-icons/ai";
+import Skeleton from "../../components/Skeleton";
 
 const formatter = new Intl.NumberFormat("pt-BR", {
 	style: "currency",
@@ -43,20 +44,23 @@ class Home extends Component {
 			isLoading: true,
 		});
 
-		ordersService
-			.getAll()
-			.then((response) => {
-				this.setState((state) => ({
-					isLoading: false,
-					orders: response.data,
-				}));
-			})
-			.catch((data) => {
-				Modal.error({
-					title: "Ocorreu um erro!",
-					content: String(data),
+		// Simula o atraso na requisição
+		setTimeout(() => {
+			ordersService
+				.getAll()
+				.then((response) => {
+					this.setState({
+						isLoading: false,
+						orders: response.data,
+					});
+				})
+				.catch((data) => {
+					Modal.error({
+						title: "Ocorreu um erro!",
+						content: String(data),
+					});
 				});
-			});
+		}, 1000);
 	};
 
 	deleteOrder = (id) => {
@@ -83,7 +87,7 @@ class Home extends Component {
 	};
 
 	render() {
-		const { orders } = this.state;
+		const { isLoading, orders } = this.state;
 
 		return (
 			<main id="site-main" role="main">
@@ -106,72 +110,83 @@ class Home extends Component {
 						</Link>
 					</header>
 					<div className="orders-container">
-						{orders?.length > 0 ? (
-							orders.map((order) => (
-								<Fragment key={order.id}>
-									<div className="order">
-										<div className="order-header">
-											<h2 className="order-title">Pedido #{order.id}</h2>
-										</div>
-										<div className="order-body">
-											<Row gutter={[20, 20]}>
-												<Col xs={24} md={6}>
-													<div className="order-body-item">
-														<h3 className="order-body-item-title">Sabor</h3>
-														<p className="order-body-item-value">
-															{order.flavor}
-														</p>
-													</div>
-												</Col>
-												<Col xs={24} md={6}>
-													<div className="order-body-item">
-														<h3 className="order-body-item-title">Tamanho</h3>
-														<p className="order-body-item-value">
-															{order.size}
-														</p>
-													</div>
-												</Col>
-												<Col xs={24} md={6}>
-													<div className="order-body-item">
-														<h3 className="order-body-item-title">
-															Adicionais
-														</h3>
-														<p className="order-body-item-value">
-															{
-																order.additions.length > 1
-																? `${order.additions.slice(0, -1).join(', ')} e ${order.additions.slice(-1)[0]}.`
-																: (order.additions.length === 1 ? order.additions[0] : "Nenhum adicional.")
-															}
-														</p>
-													</div>
-												</Col>
-												<Col xs={24} md={6}>
-													<div className="order-body-item">
-														<h3 className="order-body-item-title">
-															Total
-														</h3>
-														<p className="order-body-item-value">
-															{formatter.format(order.totalPrice ?? 0)}
-														</p>
-													</div>
-												</Col>
-											</Row>
-										</div>
-										<div className="delete-container">
-											<Button type="danger" shape="circle" onClick={() => this.deleteOrder(order.id)}><AiFillDelete size="24px" color="#fff" /></Button>
-										</div>
-									</div>
-								</Fragment>
-							))
-						) : (
-							<Empty
-								style={{
-									paddingTop: "2rem",
-									paddingBottom: "2rem",
-								}}
-								description="Nenhum pedido cadastrado."
-							/>
-						)}
+						{isLoading ? (
+							<Fragment>
+								<Skeleton h={143} hxs={356} />
+								<Skeleton h={143} hxs={356} />
+								<Skeleton h={143} hxs={356} />
+								<Skeleton h={143} hxs={356} />
+							</Fragment>
+						) :
+							<Fragment>
+								{orders?.length > 0 ? (
+									orders.map((order) => (
+										<Fragment key={order.id}>
+											<div className="order">
+												<div className="order-header">
+													<h2 className="order-title">Pedido #{order.id}</h2>
+												</div>
+												<div className="order-body">
+													<Row gutter={[20, 20]}>
+														<Col xs={24} md={6}>
+															<div className="order-body-item">
+																<h3 className="order-body-item-title">Sabor</h3>
+																<p className="order-body-item-value">
+																	{order.flavor}
+																</p>
+															</div>
+														</Col>
+														<Col xs={24} md={6}>
+															<div className="order-body-item">
+																<h3 className="order-body-item-title">Tamanho</h3>
+																<p className="order-body-item-value">
+																	{order.size}
+																</p>
+															</div>
+														</Col>
+														<Col xs={24} md={6}>
+															<div className="order-body-item">
+																<h3 className="order-body-item-title">
+																	Adicionais
+																</h3>
+																<p className="order-body-item-value">
+																	{
+																		order.additions.length > 1
+																		? `${order.additions.slice(0, -1).join(', ')} e ${order.additions.slice(-1)[0]}.`
+																		: (order.additions.length === 1 ? order.additions[0] : "Nenhum adicional.")
+																	}
+																</p>
+															</div>
+														</Col>
+														<Col xs={24} md={6}>
+															<div className="order-body-item">
+																<h3 className="order-body-item-title">
+																	Total
+																</h3>
+																<p className="order-body-item-value">
+																	{formatter.format(order.totalPrice ?? 0)}
+																</p>
+															</div>
+														</Col>
+													</Row>
+												</div>
+												<div className="delete-container">
+													<Button type="danger" shape="circle" onClick={() => this.deleteOrder(order.id)}><AiFillDelete size="24px" color="#fff" /></Button>
+												</div>
+											</div>
+										</Fragment>
+									))
+								) : (
+									<Empty
+										style={{
+											paddingTop: "2rem",
+											paddingBottom: "2rem",
+										}}
+										description="Nenhum pedido cadastrado."
+									/>
+								)}
+							</Fragment>
+						}
 					</div>
 				</div>
 			</main>

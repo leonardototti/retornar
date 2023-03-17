@@ -7,7 +7,7 @@ import * as ordersService from "../../redux/services/ordersService";
 
 import { Link, withRouter } from "react-router-dom";
 
-const formmater = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const formatter = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
 const flavorsArray = [
 	{
@@ -71,12 +71,14 @@ class NewOrder extends Component {
 		super(props);
 
 		this.state = {
+			isLoading: false,
 			step: 1,
 			flavor: 0,
 			size: 0,
 			additions: [],
 			additionsNames: [],
-			isLoading: false,
+			deliveryTime: 0,
+			totalPrice: 0,
 		};
 	}
 
@@ -139,6 +141,11 @@ class NewOrder extends Component {
 					totalPrice = 15;
 					break;
 			}
+
+			this.setState({
+				deliveryTime,
+				totalPrice,
+			});
 
 			ordersService.createOrder({
 				flavor: flavorsArray.find((flavor) => flavor.id === this.state.flavor).name,
@@ -226,7 +233,7 @@ class NewOrder extends Component {
 														<div className={`item${this.state.size === size.id ? " active" : ""}`} onClick={() => this.setState({ size: size.id })}>
 															<img src={size.image} alt={size.name} />
 															<p>{size.name}</p>
-															<p className="price">{formmater.format(size.price)}</p>
+															<p className="price">{formatter.format(size.price)}</p>
 														</div>
 													</Col>
 												))}
@@ -282,6 +289,14 @@ class NewOrder extends Component {
 
 										<div className="order-summary-item">
 											<span>Adicionais:</span> <span>{additionsNames.length > 1 ? `${additionsNames.slice(0, -1).join(', ')} e ${additionsNames.slice(-1)[0]}.` : (additionsNames.length === 1 ? additionsNames[0] : "Nenhum adicional.")}</span>
+										</div>
+
+										<div className="order-summary-item" style={{ marginTop: "20px", fontWeight: "600" }}>
+											<span>Tempo de entrega:</span> <span>{this.state.deliveryTime} minutos</span>
+										</div>
+
+										<div className="order-summary-item" style={{ fontWeight: "600" }}>
+											<span>Total:</span> <span>{formatter.format(this.state.totalPrice)}</span>
 										</div>
 									</div>
 
