@@ -261,7 +261,7 @@ class NewOrder extends Component {
 									</Fragment>
 								)}
 
-								<div className="button-container">
+								<div className="button-container steps">
 									{
 										step > 1 && !isLoading && (
 											<Button type="default" onClick={this.goPreviousStep}>Anterior</Button>

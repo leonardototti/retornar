@@ -97,11 +97,20 @@ body.page-neworder {
 			}
 		}
 
-		.button-container {
+		.button-container.steps {
 			margin-top: 60px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
+			@include mobile {
+				flex-direction: column;
+				gap: 15px;
+
+				a, .ant-btn {
+					width: 100%;
+				}
+			}
 
 			.btn-next {
 				margin-left: auto;
